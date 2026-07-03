@@ -30,7 +30,9 @@ def load_bert_assets(model_dir: str = "models/distilbert"):
     model.eval()
     device = "cuda" if torch.cuda.is_available() else "cpu"
     model.to(device)
-    return tokenizer, model,# ---------------------------------------------------------------
+    return tokenizer, model, device
+
+# ---------------------------------------------------------------
 # Email input
 # ---------------------------------------------------------------
 default_email = "URGENT! Your account will be locked. Click http://spam-link.com to verify."
