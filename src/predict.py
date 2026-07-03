@@ -17,6 +17,10 @@ def predict_email(raw_text: str, model_dir: str = "models/distilbert") -> dict:
     Returns:
         dict with keys: 'label' (int), 'label_name' (str), 'confidence' (float).
     """
+    from pathlib import Path
+    if not Path(model_dir).exists() and model_dir == "models/distilbert":
+        print(f"⚠️ Không tìm thấy thư mục '{model_dir}'. Tự động tải mô hình gốc 'distilbert-base-uncased' từ HuggingFace...")
+        model_dir = "distilbert-base-uncased"
     tokenizer = DistilBertTokenizerFast.from_pretrained(model_dir)
     model = DistilBertForSequenceClassification.from_pretrained(model_dir)
     model.eval()

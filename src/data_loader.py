@@ -4,7 +4,11 @@ import pandas as pd
 
 
 def load_dataset(path: str, text_column: str, label_column: str) -> pd.DataFrame:
-    df = pd.read_csv(path)
+    from pathlib import Path
+    data_path = Path(path)
+    if not data_path.exists():
+        data_path = Path(__file__).resolve().parent.parent / path
+    df = pd.read_csv(data_path)
     missing = [c for c in [text_column, label_column] if c not in df.columns]
     if missing:
         raise ValueError(f"Missing required columns: {missing}")
